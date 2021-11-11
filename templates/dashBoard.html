@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 <link
   href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
   rel="stylesheet"
@@ -6,8 +8,10 @@
 <link rel="stylesheet" href="{{ url_for('static',filename='dashBoard.css') }}" />
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 
+<head>
+  <title>Dashboard</title>
+</head>
 <body>
   <header>
     <div class="container bg-info p-5">
@@ -55,7 +59,7 @@
           data-target=".bd-example-modal-lg"
         >
         
-          <i class="fas fa-plus"></i> Add a new List
+          <i class="fas fa-plus"></i> Add a new project
         </button>
         </a>
         <table class="table table-hover">
@@ -172,3 +176,4 @@
     <div class="container bg-info p-5"></div>
   </footer>
 </body>
+</html>
