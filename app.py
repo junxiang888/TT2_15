@@ -70,12 +70,8 @@ class Expense(db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(100), nullable=True)
     amount = db.Column(db.Float(100), nullable=False)
-    category = db.Column(db.Float(100), nullable=False)
+    category = db.Column(db.String(100), nullable=False)
 
-    created_at = db.Column(db.DateTime, server_default=func.now(), nullable=False)
-    update_at = db.Column(
-        db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now()
-    )
     project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
     
     def __repr__(self):
@@ -247,24 +243,17 @@ def add_expenses_api():
     time_now = datetime.today()
     new_created_at = time_now.strftime("%B %d, %Y")
 
-<<<<<<< HEAD
     user = User.query.filter_by(username = current_user.username).first()
     current_user_id = user.id 
     project_id = Project.query.filter_by(user_id = current_user_id).first()
     current_project_id = project_id.id
 
 
-=======
-    project = Expense.query.filter_by(id = current_user).first()
-    #how to get the project ? Do am i able to use Current_project?
->>>>>>> 283473049aa4a96e8f210b2ce6aaf0b329466934
     new_expense_obj  = Expense(
                 name = user_input_name,
                 description = user_input_description,
                 amount = user_input_amount,
                 category = user_input_category,
-                created_at = new_created_at,
-                update_at = new_created_at,
                 project_id = current_project_id,
                 
         )
