@@ -166,8 +166,11 @@ def register_page():
 
 @ app.route('/dashboard_page', methods = ['GET','POST'])
 def dashboard_page():
-    
-    return render_template('dashBoard.html' )
+    current_user_obj = User.query.filter_by(username = current_user.username).first()
+
+    current_user_proj_obj = Project.query.filter_by(user_id = current_user_obj.id ).all()
+
+    return render_template('dashBoard.html' , user_projects = current_user_proj_obj )
 
 
 
@@ -215,6 +218,17 @@ def add_project_api():
     return redirect(url_for('dashboard_page') )
 
 
+#@ app.route('/paylah', methods = ['GET','POST'])
+#@login_required
+#def paylah_details():
+    #project_id = ''
+
+
+@app.route('/logout', methods = ['GET','POST'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login_page'))
 
 
 

@@ -26,10 +26,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="index.html"
-              >Home <span class="sr-only">(current)</span></a
+            <a class="nav-item nav-link active" href="{{url_for('logout')}}"
+              >Logout <span class="sr-only"></span></a
             >
-            <a class="nav-item nav-link" href="#">Features</a>
+
+
+
+
           </div>
         </div>
       </nav>
@@ -60,16 +63,20 @@
             <tr>
               <th scope="col">ID</th>
               <th scope="col">Project Name</th>
+              <th scope="col">Description</th>
               <th scope="col">Budget</th>
               <th scope="col">Edit List</th>
               <th scope="col">List info</th>
             </tr>
           </thead>
           <tbody>
+            {% for project in user_projects %}
             <tr>
-              <th scope="row">1</th>
-              <td>Paylah!</td>
-              <td>$1,000,000</td>
+              <th scope="row">{{ loop.index}}</th>
+              <td>{{project.name}}</td>
+              <td>{{project.description}}</td>
+              <td>{{project.budget}}</td>
+
               <td>
                 <a class="btn btn-sm btn-primary" href="#"
                   ><i class="far fa-edit"></i> edit</a
@@ -84,41 +91,9 @@
                 >
               </td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Marketplace</td>
-              <td>$500,000</td>
-              <td>
-                <a class="btn btn-sm btn-primary" href="#"
-                  ><i class="far fa-edit"></i> edit</a
-                >
-                <a class="btn btn-sm btn-danger" href="#"
-                  ><i class="fas fa-trash-alt"></i> delete</a
-                >
-              </td>
-              <td>
-                <a class="btn btn-sm btn-info" href="#"
-                  ><i class="fas fa-info-circle"></i> Details</a
-                >
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colspan="2">New Project</td>
-              <td>
-                <a class="btn btn-sm btn-primary" href="#"
-                  ><i class="far fa-edit"></i> edit</a
-                >
-                <a class="btn btn-sm btn-danger" href="#"
-                  ><i class="fas fa-trash-alt"></i> delete</a
-                >
-              </td>
-              <td>
-                <a class="btn btn-sm btn-info" href="#"
-                  ><i class="fas fa-info-circle"></i> Details</a
-                >
-              </td>
-            </tr>
+
+            {% endfor %}
+            
           </tbody>
         </table>
       </div>
