@@ -1,86 +1,85 @@
 <!DOCTYPE html>
 <html>
-<link
-  href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-  rel="stylesheet"
-  id="bootstrap-css"
-/>
-<link rel="stylesheet" href="{{ url_for('static',filename='dashBoard.css') }}" />
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link
+    href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    rel="stylesheet"
+    id="bootstrap-css"
+  />
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static',filename='dashBoard.css') }}"
+  />
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<head>
-  <title>Dashboard</title>
-</head>
-<body>
-  <header>
-    <div class="container bg-info p-5">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="{{url_for('logout')}}"
-              >Logout <span class="sr-only"></span></a
-            >
-
-
-
-
+  <head>
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <header>
+      <div class="container bg-info p-5">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">Username</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link active" href="{{url_for('logout')}}"
+                >Logout <span class="sr-only"></span
+              ></a>
+            </div>
           </div>
-        </div>
-      </nav>
-    </div>
-  </header>
-  <!---->
-  <main>
-    <div class="container my-5">
-      <div class="card-body text-center">
-        <h4 class="card-title">Projects</h4>
-        <p class="card-text">All your projects.</p>
+        </nav>
       </div>
-      <div class="card">
-        <a href = "{{url_for('add_project')}}" > 
-        <button
-          id="add__new__list"
-          type="button"
-          class="btn btn-success position-absolute"
-          data-toggle="modal"
-          data-target=".bd-example-modal-lg"
-        >
-        
-          <i class="fas fa-plus"></i> Add a new project
-        </button>
-        </a>
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Project Name</th>
-              <th scope="col">Description</th>
-              <th scope="col">Budget</th>
-              <th scope="col">Edit List</th>
-              <th scope="col">List info</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for project in user_projects %}
-            <tr>
-              <th scope="row">{{ loop.index}}</th>
-              <td>{{project.name}}</td>
-              <td>{{project.description}}</td>
-              <td>{{project.budget}}</td>
+    </header>
+    <!---->
+    <main>
+      <div class="container my-5">
+        <div class="card-body text-center">
+          <h4 class="card-title">Projects</h4>
+          <p class="card-text">All your projects.</p>
+        </div>
+        <div class="card">
+          <a href="{{url_for('add_project')}}">
+            <button
+              id="add__new__list"
+              type="button"
+              class="btn btn-success position-absolute"
+              data-toggle="modal"
+              data-target=".bd-example-modal-lg"
+            >
+              <i class="fas fa-plus"></i> Add a new project
+            </button>
+          </a>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Project Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Budget</th>
+                <th scope="col">Edit List</th>
+                <th scope="col">List info</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for project in user_projects %}
+              <tr>
+                <th scope="row">{{ loop.index}}</th>
+                <td>{{project.name}}</td>
+                <td>{{project.description}}</td>
+                <td>{{project.budget}}</td>
 
+<<<<<<< HEAD
               <td>
                 <a class="btn btn-sm btn-primary" href="#"
                   ><i class="far fa-edit"></i> edit</a
@@ -95,85 +94,102 @@
                 >
               </td>
             </tr>
+=======
+                <td>
+                  <a class="btn btn-sm btn-primary" href="#"
+                    ><i class="far fa-edit"></i> edit</a
+                  >
+                  <a
+                    class="btn btn-sm btn-danger"
+                    href="{{ url_for('delete_project', project_id = project.id )}}"
+                    ><i class="fas fa-trash-alt"></i> delete</a
+                  >
+                </td>
+                <td>
+                  <a class="btn btn-sm btn-info" href="#"
+                    ><i class="fas fa-info-circle"></i> Details</a
+                  >
+                </td>
+              </tr>
+>>>>>>> 8a352bbbc56b30459d39fe4f4be5005234859384
 
-            {% endfor %}
-            
-          </tbody>
-        </table>
-      </div>
-      <!-- Large modal -->
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <!-- Large modal -->
 
-      <div
-        class="modal fade bd-example-modal-lg"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="myLargeModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="card-body text-center">
-              <h4 class="card-title">Special title treatment</h4>
-              <p class="card-text">
-                With supporting text below as a natural lead-in to additional
-                content.
-              </p>
-            </div>
-            <div class="card col-8 offset-2 my-2 p-3">
-              <form>
-                <div class="form-group">
-                  <label for="listname">List name</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="listname"
-                    id="listname"
-                    placeholder="Enter your listname"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="datepicker">Deadline</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="datepicker"
-                    id="datepicker"
-                    placeholder="Pick up a date"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="datepicker">Add a list item</label>
-                  <div class="input-group">
+        <div
+          class="modal fade bd-example-modal-lg"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="myLargeModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="card-body text-center">
+                <h4 class="card-title">Special title treatment</h4>
+                <p class="card-text">
+                  With supporting text below as a natural lead-in to additional
+                  content.
+                </p>
+              </div>
+              <div class="card col-8 offset-2 my-2 p-3">
+                <form>
+                  <div class="form-group">
+                    <label for="listname">List name</label>
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Add an item"
-                      aria-label="Search for..."
+                      name="listname"
+                      id="listname"
+                      placeholder="Enter your listname"
                     />
-                    <span class="input-group-btn">
-                      <button class="btn btn-secondary" type="button">
-                        Go!
-                      </button>
-                    </span>
                   </div>
-                </div>
-                <div class="form-group text-center">
-                  <button type="submit" class="btn btn-block btn-primary">
-                    Sign in
-                  </button>
-                </div>
-              </form>
+                  <div class="form-group">
+                    <label for="datepicker">Deadline</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="datepicker"
+                      id="datepicker"
+                      placeholder="Pick up a date"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="datepicker">Add a list item</label>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Add an item"
+                        aria-label="Search for..."
+                      />
+                      <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="button">
+                          Go!
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group text-center">
+                    <button type="submit" class="btn btn-block btn-primary">
+                      Sign in
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
-  <!---->
+    </main>
+    <!---->
 
-  <!---->
-  <footer>
-    <div class="container bg-info p-5"></div>
-  </footer>
-</body>
+    <!---->
+    <footer>
+      <div class="container bg-info p-5"></div>
+    </footer>
+  </body>
 </html>

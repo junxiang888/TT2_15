@@ -226,6 +226,7 @@ def project_details():
 
     return render_template('projectDashBoard.html' , expense_obj = expense_object)
 
+
 @app.route('/delete_project/<int:project_id>' )
 def delete_project(project_id):
 
@@ -269,10 +270,12 @@ def add_expenses_api():
     db.session.commit()
     return redirect(url_for('project_page') )
 
-
-
-
-
+@app.route('/delete_expense/<int:expense_id>' )
+def delete_expense(expense_id):
+    user_expense_query = Expense.query.filter_by(id = expense_id ).first()
+    db.session.delete(user_expense_query)
+    db.session.commit()
+    return redirect(url_for('project_page'))
 
 if __name__ == '__main__':
 	app.run(debug = True)
