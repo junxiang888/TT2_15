@@ -215,14 +215,17 @@ def logout():
     return redirect(url_for('login_page'))
 
 
-@ app.route('/dashboard/project', methods = ['GET','POST'])
+@app.route('/project_details', methods = ['GET','POST'])
 @login_required
-def paylah_details():
+def project_details():
     user = User.query.filter_by(username = current_user.username).first()
     current_user_id = user.id 
     project_id = Project.query.filter_by(user_id = current_user_id).first()
     current_project_id = project_id.id
-    expense_id = Expense.query.filter_by(project_id = current_project_id)
+    expense_object = Expense.query.filter_by(project_id = current_project_id)
+
+    return render_template('projectDashBoard.html' , expense_obj = expense_object)
+
 
 @app.route('/delete_project/<int:project_id>' )
 def delete_project(project_id):
@@ -236,7 +239,7 @@ def delete_project(project_id):
 def edit_expense(project_id):
     return redirect(url_for('project_page'))
     
-@ app.route('/add_new_expense', methods = ['GET','POST'])
+@app.route('/add_new_expense', methods = ['GET','POST'])
 @login_required
 def add_expense():
     
@@ -273,8 +276,6 @@ def delete_expense(expense_id):
     db.session.delete(user_expense_query)
     db.session.commit()
     return redirect(url_for('project_page'))
-
-
 
 if __name__ == '__main__':
 	app.run(debug = True)
