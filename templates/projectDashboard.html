@@ -83,12 +83,17 @@
           <label for="text">Updated at (date and time):</label>
           <input type="datetime-local" id="updated_at" name="updated_at" />
         </div>
-        <a href="{{url_for('add_expenses_api')}}"></a>
+        
+        <a href="{{url_for('add_expenses_api')}}">
         <button class="btn">Add expense</button>
         </a>
+
+
       </form>
       
-      
+        <a href="{{url_for('dashboard_page')}}">
+        <button class="btn">Back to Dashboard</button>      
+        </a>      
     </div>
   </body>
 </html>
