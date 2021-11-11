@@ -157,9 +157,9 @@ def register_page():
         db.session.add(new_user)
         db.session.commit()
         
-        return redirect(url_for('dashboard_page'))
+        return redirect(url_for('login_page'))
     
-    return render_template('registrationForm.html' , form = form)
+    return render_template('registrationPage.html' , form = form)
 
 
 
@@ -224,12 +224,7 @@ def paylah_details():
     current_project_id = project_id.id
     expense_id = Expense.query.filter_by(project_id = current_project_id)
 
-<<<<<<< HEAD
-
-@ app.route('/delete_project/<int:project_id>' )
-=======
 @app.route('/delete_project/<int:project_id>' )
->>>>>>> 8b6777f76eb114522c7a2687930225bafb66c246
 def delete_project(project_id):
 
     user_project_query = Project.query.filter_by(id = project_id ).first()
@@ -241,8 +236,36 @@ def delete_project(project_id):
 def edit_expense(project_id):
     return redirect(url_for('project_page'))
     
+@ app.route('/add_new_expense', methods = ['GET','POST'])
+@login_required
+def add_expense():
+    
+    return render_template('add_expense.html' )
+    #front end adding
 
+@ app.route('/add_new_expense_api', methods = ['GET','POST'])
+@login_required
+def add_expenses_api():
+    user_input_name = request.form['input_name']    
+    user_input_description = request.form['input_description']
+    user_input_amount = request.form['input_amount']
+    time_now = datetime.today()
+    new_created_at = time_now.strftime("%B %d, %Y")
 
+    project = Expense.query.filter_by(id = current_user).first()
+    #how to get the project ? Do am i able to use Current_project?
+    new_expense_obj  = Project(
+                name = user_input_name,
+                description = user_input_description,
+                amont = user_input_amount,
+                created_at = new_created_at,
+                update_at = new_created_at,
+                project_id = project.id,
+                category_id = 1
+        )
+    db.session.add(new_expense_obj)
+    db.session.commit()
+    return redirect(url_for('project_page') )
 
 
 
