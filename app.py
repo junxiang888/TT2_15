@@ -279,7 +279,7 @@ def delete_expense(expense_id):
 def edit(expense_id):
     to_edit = Expense.query.filter_by(id = expense_id).first()
     if to_edit:
-        db.session.delete(user_project_query)
+        db.session.delete(to_edit)
         db.session.commit()
         user_input_name = request.form['new_input_name']    
         user_input_description = request.form['new_input_description']
