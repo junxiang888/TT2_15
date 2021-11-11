@@ -144,10 +144,12 @@ def register_page():
 
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data)
+        user_name_input = request.form['register_name']
+        user_appointment_input = request.form['register_appointment']
         new_user = User(username= form.username.data, 
             password_hash = hashed_password,
-            name =  form.name.data,
-            appointment = form.appoitnment.data
+            name =  user_name_input,
+            appointment = user_appointment_input
             )
         db.session.add(new_user)
         db.session.commit()
