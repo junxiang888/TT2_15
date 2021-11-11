@@ -21,36 +21,13 @@
         </div>
 
         <!-- Login Form -->
-        <form>
-          <input
-            type="text"
-            id="username"
-            class="fadeIn second"
-            name="login"
-            placeholder="username"
-          />
-          <input
-            type="text"
-            id="password"
-            class="fadeIn third"
-            name="login"
-            placeholder="password"
-          />
-          <input
-            type="text"
-            id="name"
-            class="fadeIn third"
-            name="login"
-            placeholder="name"
-          />
-          <input
-            type="text"
-            id="appointment"
-            class="fadeIn third"
-            name="login"
-            placeholder="appointment"
-          />
-          <input type="submit" class="fadeIn fourth" value="Log In" />
+        <form method = "POST" , actions = "">
+          {{form.hidden_tag()}}
+          {{form.username}}
+          {{form.password}}
+          <br>
+          {{form.submit}}
+          
         </form>
 
         <!-- Remind Passowrd -->

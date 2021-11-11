@@ -31,6 +31,17 @@ BASE = "http://127.0.0.1:5000/"
 
 api = Api(app)
 
+
+
+
+login_manager= LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login_page"
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -41,6 +52,19 @@ class User(UserMixin, db.Model):
     
     def __repr__(self):
         return f"User('{self.id}','{self.username}', '{self.password_hash}', '{self.name}', '{self.appointment}')"
+
+
+
+
+class LoginForm(FlaskForm):
+    username = StringField(validators = [InputRequired(), Length( min=3,
+        max = 20)] , render_kw = {"placeholder" : "Username"})
+
+
+    password = PasswordField(validators = [InputRequired(), Length( min=3,
+        max = 20)] , render_kw = {"placeholder" : "Password"})
+
+    submit = SubmitField("Login")
 
 
 class Project(db.Model):
@@ -81,8 +105,16 @@ class Category(db.Model):
 
 @ app.route('/', methods = ['GET','POST'])
 def login_page():
+    form = LoginForm()
 
-	return render_template('loginPage.html')
+    if form.validate_on_submit():
+        user = User.query.filter_by(username = form.username.data).first()
+        if user:
+            if bcrypt.check_password_hash(user.password, form.password.data):
+                login_user(user)
+                return redirect(url_for('dashboard'))
+
+    return render_template('loginPage.html' , form = form)
 
 
 if __name__ == '__main__':
