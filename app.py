@@ -70,13 +70,14 @@ class Expense(db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(100), nullable=True)
     amount = db.Column(db.Float(100), nullable=False)
+    category = db.Column(db.Float(100), nullable=False)
+
     created_at = db.Column(db.DateTime, server_default=func.now(), nullable=False)
     update_at = db.Column(
         db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now()
     )
     project_id = db.Column(db.Integer, db.ForeignKey("project.id"), nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=False)
-
+    
     def __repr__(self):
         return f"Post('{self.id}','{self.name}', '{self.description}', '{self.amount}', '{self.created_at}', '{self.update_at}', '{self.project_id}', '{self.category_id}')"
 
@@ -236,44 +237,42 @@ def delete_project(project_id):
 def edit_expense(project_id):
     return redirect(url_for('project_page'))
 
-    
-@app.route('/add_new_expense', methods = ['GET','POST'])
-@login_required
-def add_expense():
-    
-    return render_template('add_expense.html' )
-    #front end adding
-
 @ app.route('/add_new_expense_api', methods = ['GET','POST'])
 @login_required
 def add_expenses_api():
     user_input_name = request.form['input_name']    
     user_input_description = request.form['input_description']
     user_input_amount = request.form['input_amount']
+    user_input_category = request.form['input_category']
     time_now = datetime.today()
     new_created_at = time_now.strftime("%B %d, %Y")
 
-    project = Expense.query.filter_by(id = current_user).first()
-    #how to get the project ? Do am i able to use Current_project?
-    new_expense_obj  = Project(
+    user = User.query.filter_by(username = current_user.username).first()
+    current_user_id = user.id 
+    project_id = Project.query.filter_by(user_id = current_user_id).first()
+    current_project_id = project_id.id
+
+
+    new_expense_obj  = Expense(
                 name = user_input_name,
                 description = user_input_description,
-                amont = user_input_amount,
+                amount = user_input_amount,
+                category = user_input_category,
                 created_at = new_created_at,
                 update_at = new_created_at,
-                project_id = project.id,
-                category_id = 1
+                project_id = current_project_id,
+                
         )
     db.session.add(new_expense_obj)
     db.session.commit()
-    return redirect(url_for('project_page') )
+    return redirect(url_for('project_details') )
 
 @app.route('/delete_expense/<int:expense_id>' )
 def delete_expense(expense_id):
     user_expense_query = Expense.query.filter_by(id = expense_id ).first()
     db.session.delete(user_expense_query)
     db.session.commit()
-    return redirect(url_for('project_page'))
+    return redirect(url_for('project_details'))
 
 @app.route('/edit_expense/<int:id>', methods=['get', 'post'])
 def edit(id):

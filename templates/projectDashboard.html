@@ -31,21 +31,27 @@
       <h3>History</h3>
       <table>
         <tr>
+          <th>Name</th>
+          <th>Description</th>
           <th>Category</th>
           <th>Amount</th>
           <th></th>
         </tr>
+        {% for expense in expense_obj %}
         <tr>
-          <td>Production</td>
-          <td>$50000</td>
+          <td>{{expense.name}}</td>
+          <td>{{expense.description}} </td>
+          <td> {{expense.category}} </td>
+          <td> {{expense.amount}}</td>
           <td>Edit/Delete</td>
         </tr>
+        {% endfor %}
       </table>
       <h3>Add new expense</h3>
-      <form id="form">
+      <form id="form" method="POST" action = "{{url_for('add_expenses_api')}}">
         <div class="form-control">
           <label for="text">Category:</label>
-          <select name="category" id="category">
+          <select name="input_category" id="category">
             <option value="production">Production</option>
             <option value="operating">Operating</option>
             <option value="financial">Financial</option>
@@ -56,12 +62,16 @@
           </select>
         </div>
         <div class="form-control">
+          <label for="text">Name:</label>
+          <input type="text" id="description" name = "input_name" placeholder="Enter Name" />
+        </div>
+        <div class="form-control">
           <label for="text">Description:</label>
-          <input type="text" id="description" placeholder="Enter description" />
+          <input type="text" id="description" name = "input_description" placeholder="Enter description" />
         </div>
         <div class="form-control">
           <label for="amount">Amount: <br /> </label>
-          <input type="number" id="amount" placeholder="Enter amount" />
+          <input type="number" id="amount" name = "input_amount" placeholder="Enter amount" />
           <div class="form-control">
             <label for="text">Created at (date and time):</label>
             <input type="datetime-local" id="created_at" name="created_at" />
@@ -71,7 +81,7 @@
           <label for="text">Updated at (date and time):</label>
           <input type="datetime-local" id="updated_at" name="updated_at" />
         </div>
-        <a href="{{url_for('add_expense')}}"></a>
+        <a href="{{url_for('add_expenses_api')}}"></a>
         <button class="btn">Add expense</button>
         </a>
       </form>
