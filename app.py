@@ -170,7 +170,7 @@ def dashboard_page():
 
     current_user_proj_obj = Project.query.filter_by(user_id = current_user_obj.id ).all()
 
-    return render_template('dashBoard.html' , user_projects = current_user_proj_obj )
+    return render_template('dashBoard.html' , user_projects = current_user_proj_obj , user = current_user_obj )
 
 
 
