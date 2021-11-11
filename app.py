@@ -131,7 +131,7 @@ def login_page():
         if user:
             if bcrypt.check_password_hash(user.password_hash, form.password.data):
                 login_user(user)
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('dashboard_page'))
 
     return render_template('loginPage.html' , form = form)
 
