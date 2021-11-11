@@ -228,6 +228,15 @@ def logout():
 
 
 
+@ app.route('/delete_project/<int:project_id>' )
+def delete_project(project_id):
+
+    user_project_query = Project.query.filter_by(id = project_id ).first()
+    db.session.delete(user_project_query)
+    db.session.commit()
+    return redirect(url_for('dashboard_page'))
+
+
 
 
 
