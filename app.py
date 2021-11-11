@@ -224,6 +224,7 @@ def paylah_details():
     current_project_id = project_id.id
     expense_id = Expense.query.filter_by(project_id = current_project_id)
 
+
 @app.route('/delete_project/<int:project_id>' )
 def delete_project(project_id):
 
@@ -273,8 +274,6 @@ def delete_expense(expense_id):
     db.session.delete(user_expense_query)
     db.session.commit()
     return redirect(url_for('project_page'))
-
-
 
 if __name__ == '__main__':
 	app.run(debug = True)
