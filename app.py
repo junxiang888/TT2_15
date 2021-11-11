@@ -1,7 +1,6 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin , login_user , LoginManager, login_required, logout_user, current_user
-from app import login
 from flask import Flask, render_template, url_for, redirect , request
 
 from flask_wtf import FlaskForm
@@ -42,10 +41,12 @@ class User(UserMixin, db.Model):
     
     def __repr__(self):
         return f"User('{self.id}','{self.username}', '{self.password_hash}', '{self.name}', '{self.appointment}')"
+
+
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), nullable = False )
-    description = db.Column(db.string(200),nullable = True)
+    description = db.Column(db.String(200),nullable = True)
     budget = db.Column(db.Float(100), nullable = True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
@@ -78,17 +79,10 @@ class Category(db.Model):
 
 
 
-
-@login.user_loader
-def load_user(id):
-    return User.query.get(int(id))
-
-
-
-@ app.route('/login', methods = ['GET','POST'])
+@ app.route('/', methods = ['GET','POST'])
 def login_page():
 
-	return render_template('static/loginPage.html')
+	return render_template('loginPage.html')
 
 
 if __name__ == '__main__':
