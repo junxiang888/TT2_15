@@ -1,5 +1,6 @@
 from app import app
 import json
+import flask
 
 category = json.load(open('category.json'))
 expense = json.load(open('expense.json'))
