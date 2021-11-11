@@ -185,12 +185,6 @@ def add_project():
     return render_template('add_project.html' )
 
 
-# id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(128), nullable = False )
-#     description = db.Column(db.String(200),nullable = True)
-#     budget = db.Column(db.Float(100), nullable = True)
-#     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-
 
 @ app.route('/add_new_project_api', methods = ['GET','POST'])
 @login_required
@@ -201,10 +195,6 @@ def add_project_api():
 
     user = User.query.filter_by(username = current_user.username).first()
 
-    # name = db.Column(db.String(128), nullable = False )
-    # description = db.Column(db.String(200),nullable = True)
-    # budget = db.Column(db.Float(100), nullable = True)
-    # user_id = db.
     
     new_project_obj  = Project(
                 name = user_input_name,
@@ -218,8 +208,6 @@ def add_project_api():
     return redirect(url_for('dashboard_page') )
 
 
-
-
 @app.route('/logout', methods = ['GET','POST'])
 @login_required
 def logout():
@@ -227,6 +215,14 @@ def logout():
     return redirect(url_for('login_page'))
 
 
+@ app.route('/paylah', methods = ['GET','POST'])
+@login_required
+def paylah_details():
+    user = User.query.filter_by(username = current_user.username).first()
+    current_user_id = user.id 
+    project_id = Project.query.filter_by(user_id = current_user_id).first()
+    current_project_id = project_id.id
+    expense_id = Expense.query.filter_by(project_id = current_project_id)
 
 @app.route('/delete_project/<int:project_id>' )
 def delete_project(project_id):
