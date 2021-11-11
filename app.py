@@ -227,7 +227,7 @@ def logout():
     return redirect(url_for('login_page'))
 
 
-@ app.route('/paylah', methods = ['GET','POST'])
+@ app.route('/dashboard/project', methods = ['GET','POST'])
 @login_required
 def paylah_details():
     user = User.query.filter_by(username = current_user.username).first()
@@ -235,6 +235,7 @@ def paylah_details():
     project_id = Project.query.filter_by(user_id = current_user_id).first()
     current_project_id = project_id.id
     expense_id = Expense.query.filter_by(project_id = current_project_id)
+
 
 @ app.route('/delete_project/<int:project_id>' )
 def delete_project(project_id):
@@ -244,16 +245,13 @@ def delete_project(project_id):
     db.session.commit()
     return redirect(url_for('dashboard_page'))
 
+@app.route('/edit_project/<int:project_id>')
+def edit_expense(project_id):
+    return redirect(url_for('project_page'))
+    
 
 
-
-
-
-
-
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
 	app.run(debug = True)
 
 
