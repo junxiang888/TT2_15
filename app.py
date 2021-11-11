@@ -218,6 +218,10 @@ def add_project_api():
     return redirect(url_for('dashboard_page') )
 
 
+#@ app.route('/paylah', methods = ['GET','POST'])
+#@login_required
+#def paylah_details():
+    #project_id = ''
 
 
 @app.route('/logout', methods = ['GET','POST'])
