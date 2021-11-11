@@ -255,7 +255,7 @@ def add_expenses_api():
 
     project = Expense.query.filter_by(id = current_user).first()
     #how to get the project ? Do am i able to use Current_project?
-    new_expense_obj  = Project(
+    new_expense_obj  = Expense(
                 name = user_input_name,
                 description = user_input_description,
                 amont = user_input_amount,
@@ -276,8 +276,19 @@ def delete_expense(expense_id):
     return redirect(url_for('project_page'))
 
 @app.route('/edit_expense/<int:id>', methods=['get', 'post'])
-def edit(id):
-    to_edit
+def edit(expense_id):
+    to_edit = Expense.query.filter_by(id = expense_id).first()
+    if to_edit:
+        db.session.delete(user_project_query)
+        db.session.commit()
+        user_input_name = request.form['new_input_name']    
+        user_input_description = request.form['new_input_description']
+        user_input_amount = request.form['mew_input_amount']
+        time_now = datetime.today()
+        new_created_at = time_now.strftime("%B %d, %Y")
+        return redirect(url_for('project_page'))
+    else:
+        return redirect(url_for('project_page'))
 
 if __name__ == '__main__':
 	app.run(debug = True)
