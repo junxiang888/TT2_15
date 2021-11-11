@@ -9,6 +9,5 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
 db = SQLAlchemy(app) 
 bcrypt = Bcrypt(app)
-authtoken = 'f9668basdf2134664sdf345234asdc385f063cf'
 
 from app import routes
