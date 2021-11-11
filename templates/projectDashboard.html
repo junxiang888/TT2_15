@@ -15,7 +15,7 @@
 
     <div class="container">
       <h4>Your Balance</h4>
-      <h2 id="balance">$0.00</h2>
+      <h2 id="balance">$ {{project_obj.budget}}</h2>
 
       <div class="inc-exp-container">
         <div>
@@ -34,11 +34,15 @@
           <th>Category</th>
           <th>Amount</th>
           <th></th>
+          <th>Created at</th>
+          <th>Updated at</th>
         </tr>
         <tr>
           <td>Production</td>
           <td>$50000</td>
           <td>Edit/Delete</td>
+          <td>dd/mm/yy</td>
+          <td>dd/mm/yy</td>
         </tr>
       </table>
       <h3>Add new expense</h3>
@@ -75,6 +79,7 @@
         <button class="btn">Add expense</button>
         </a>
       </form>
+      
       
     </div>
   </body>
