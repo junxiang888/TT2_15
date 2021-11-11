@@ -48,23 +48,11 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     name = db.Column(db.String(128))
     appointment = db.Column(db.String(128))
-    user_id = db.Column(db.String(128))
+    
     
     def __repr__(self):
         return f"User('{self.id}','{self.username}', '{self.password_hash}', '{self.name}', '{self.appointment}')"
 
-
-
-
-class LoginForm(FlaskForm):
-    username = StringField(validators = [InputRequired(), Length( min=3,
-        max = 20)] , render_kw = {"placeholder" : "Username"})
-
-
-    password = PasswordField(validators = [InputRequired(), Length( min=3,
-        max = 20)] , render_kw = {"placeholder" : "Password"})
-
-    submit = SubmitField("Login")
 
 
 class Project(db.Model):
@@ -101,6 +89,37 @@ class Category(db.Model):
         return f"Post('{self.id}','{self.name}')"
 
 
+class LoginForm(FlaskForm):
+    username = StringField(validators = [InputRequired(), Length( min=3,
+        max = 20)] , render_kw = {"placeholder" : "Username"})
+
+
+    password = PasswordField(validators = [InputRequired(), Length( min=3,
+        max = 20)] , render_kw = {"placeholder" : "Password"})
+
+    submit = SubmitField("Login")
+
+
+class RegisterForm(FlaskForm):
+    username = StringField(validators = [InputRequired(), Length( min=3,
+        max = 20)] , render_kw = {"placeholder" : "Username"})
+
+
+    password = PasswordField(validators = [InputRequired(), Length( min=3,
+        max = 20)] , render_kw = {"placeholder" : "Password"})
+
+    submit = SubmitField("Register")
+
+
+    def validate_username(self,username):
+        existing_username = User.query.filter_by(
+            username = username.data).first()
+
+        if existing_username:
+            raise ValidationError(
+                "That username already exists. Please choose another name")
+
+
 
 
 @ app.route('/', methods = ['GET','POST'])
@@ -110,11 +129,49 @@ def login_page():
     if form.validate_on_submit():
         user = User.query.filter_by(username = form.username.data).first()
         if user:
-            if bcrypt.check_password_hash(user.password, form.password.data):
+            if bcrypt.check_password_hash(user.password_hash, form.password.data):
                 login_user(user)
                 return redirect(url_for('dashboard'))
 
     return render_template('loginPage.html' , form = form)
+
+
+password_hash = db.Column(db.String(128))
+    name = db.Column(db.String(128))
+    appointment = db.Column(db.String(128))
+    user_id = db.Column(db.String(128))
+
+
+
+
+
+@ app.route('/register' , methods = ['GET','POST'])
+def register_page():
+    form = RegisterForm()
+
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data)
+        new_user = User(username= form.username.data, 
+            password_hash = hashed_password,
+            name =  form.name.data,
+            appointment = form.appoitnment.data
+            )
+        db.session.add(new_user)
+        db.session.commit()
+        
+        return redirect(url_for('dashboard_page'))
+    
+    return render_template('registrationForm.html' , form = form)
+
+
+
+
+@ app.route('/', methods = ['GET','POST'])
+def dashboard_page():
+    
+    return render_template('dashBoard.html' )
+
+
 
 
 if __name__ == '__main__':
