@@ -128,10 +128,13 @@ def login_page():
 
     if form.validate_on_submit():
         user = User.query.filter_by(username = form.username.data).first()
+
         if user:
+
             if bcrypt.check_password_hash(user.password_hash, form.password.data):
+                print("correct password")
                 login_user(user)
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('dashboard_page'))
 
     return render_template('loginPage.html' , form = form)
 
@@ -161,7 +164,7 @@ def register_page():
 
 
 
-@ app.route('/', methods = ['GET','POST'])
+@ app.route('/dashboard_page', methods = ['GET','POST'])
 def dashboard_page():
     
     return render_template('dashBoard.html' )
