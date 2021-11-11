@@ -1,49 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static',filename='paylahDashboard.css') }}"
-    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='categoryExpenses.css') }}" />
+    <title>Expense Tracker</title>
   </head>
   <body>
-    <form method="POST" actions="">
-      <div class="container">
-        <h1>Register</h1>
-        <p>Please fill in this form to create an account.</p>
-        <hr />
+    <h2>Expense Tracker</h2>
 
-        <label for="email"><b>Username</b></label>
-        {{ form.hidden_tag() }} {{ form.username }}
+    <div class="container">
+      <h4>Your Balance</h4>
+      <h1 id="balance">$0.00</h1>
 
-        <label for="psw"><b>Password</b></label>
-        {{ form.password }}
-
-        <label for="psw"><b>Name</b></label>
-        <input type="text" name="register_name" />
-
-        <label for="psw"><b>Appointment</b></label>
-        <input type="text" name="register_appointment" />
-
-        <hr />
-
-        {% for error in form.username.errors %}
-        <p>{{error}}</p>
-        {% endfor %}
-
-        <p>
-          By creating an account you agree to our
-          <a href="#">Terms & Privacy</a>.
-        </p>
-        <div clas="registerbtn">{{ form.submit }}</div>
+      <div class="inc-exp-container">
+        <div>
+          <h4>Income</h4>
+          <p id="money-plus" class="money plus">+$0.00</p>
+        </div>
+        <div>
+          <h4>Expense</h4>
+          <p id="money-minus" class="money minus">-$0.00</p>
+        </div>
       </div>
-    </form>
 
-    <div class="container signin">
-      <p>
-        Already have an account?
-        <a href="{{url_for('login_page')}}">Sign in</a>.
-      </p>
+      <h3>History</h3>
+      <ul id="list" class="list">
+        <!-- <li class="minus">
+          Cash <span>-$400</span><button class="delete-btn">x</button>
+        </li> -->
+      </ul>
+
+      <h3>Add new transaction</h3>
+      <form id="form">
+        <div class="form-control">
+          <label for="text">Text</label>
+          <input type="text" id="text" placeholder="Enter text..." />
+        </div>
+        <div class="form-control">
+          <label for="amount"
+            >Amount <br />
+            (negative - expense, positive - income)</label
+          >
+          <input type="number" id="amount" placeholder="Enter amount..." />
+        </div>
+        <button class="btn">Add transaction</button>
+      </form>
     </div>
   </body>
 </html>
