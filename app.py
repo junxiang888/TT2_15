@@ -267,8 +267,12 @@ def add_expenses_api():
     db.session.commit()
     return redirect(url_for('project_page') )
 
-
-
+@app.route('/delete_expense/<int:expense_id>' )
+def delete_expense(expense_id):
+    user_expense_query = Expense.query.filter_by(id = expense_id ).first()
+    db.session.delete(user_expense_query)
+    db.session.commit()
+    return redirect(url_for('project_page'))
 
 
 
