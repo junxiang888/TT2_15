@@ -175,9 +175,6 @@ def dashboard_page():
 
 
 
-
-
-
 @ app.route('/add_new_project', methods = ['GET','POST'])
 @login_required
 def add_project():
@@ -238,6 +235,7 @@ def delete_project(project_id):
 @app.route('/edit_project/<int:project_id>')
 def edit_expense(project_id):
     return redirect(url_for('project_page'))
+
     
 @app.route('/add_new_expense', methods = ['GET','POST'])
 @login_required
@@ -276,6 +274,10 @@ def delete_expense(expense_id):
     db.session.delete(user_expense_query)
     db.session.commit()
     return redirect(url_for('project_page'))
+
+@app.route('/edit_expense/<int:id>', methods=['get', 'post'])
+def edit(id):
+    to_edit
 
 if __name__ == '__main__':
 	app.run(debug = True)
