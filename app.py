@@ -221,7 +221,7 @@ def project_details():
     current_project_id = project_id.id
     expense_object = Expense.query.filter_by(project_id = current_project_id)
 
-    return render_template('projectDashBoard.html' , expense_obj = expense_object)
+    return render_template('projectDashBoard.html' , expense_obj = expense_object ,  project_obj = project_id)
 
 
 @app.route('/delete_project/<int:project_id>' )
