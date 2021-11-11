@@ -43,6 +43,7 @@
         <p class="card-text">All your projects.</p>
       </div>
       <div class="card">
+        <a href = "{{url_for('add_project')}}" > 
         <button
           id="add__new__list"
           type="button"
@@ -50,8 +51,10 @@
           data-toggle="modal"
           data-target=".bd-example-modal-lg"
         >
+        
           <i class="fas fa-plus"></i> Add a new List
         </button>
+        </a>
         <table class="table table-hover">
           <thead>
             <tr>

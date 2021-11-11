@@ -172,6 +172,60 @@ def dashboard_page():
 
 
 
+
+
+
+@ app.route('/add_new_project', methods = ['GET','POST'])
+@login_required
+def add_project():
+    
+    return render_template('add_project.html' )
+
+
+# id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(128), nullable = False )
+#     description = db.Column(db.String(200),nullable = True)
+#     budget = db.Column(db.Float(100), nullable = True)
+#     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+
+
+@ app.route('/add_new_project_api', methods = ['GET','POST'])
+@login_required
+def add_project_api():
+    user_input_name = request.form['input_name']    
+    user_input_description = request.form['input_description']
+    user_input_budget = request.form['input_budget']
+
+    user = User.query.filter_by(username = current_user.username).first()
+
+    # name = db.Column(db.String(128), nullable = False )
+    # description = db.Column(db.String(200),nullable = True)
+    # budget = db.Column(db.Float(100), nullable = True)
+    # user_id = db.
+    
+    new_project_obj  = Project(
+                name = user_input_name,
+                description = user_input_description,
+                budget = user_input_budget,
+                user_id = user.id
+        )
+    db.session.add(new_project_obj)
+    db.session.commit()
+
+    return redirect(url_for('dashboard_page') )
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
 	app.run(debug = True)
 
