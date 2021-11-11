@@ -166,8 +166,11 @@ def register_page():
 
 @ app.route('/dashboard_page', methods = ['GET','POST'])
 def dashboard_page():
-    
-    return render_template('dashBoard.html' )
+    current_user_obj = User.query.filter_by(username = current_user.username).first()
+
+    current_user_proj_obj = Project.query.filter_by(person_id = current_user_obj.id ).all()
+
+    return render_template('dashBoard.html' , user_projects = current_user_proj_obj )
 
 
 
