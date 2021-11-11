@@ -159,7 +159,7 @@ def register_page():
         
         return redirect(url_for('login_page'))
     
-    return render_template('registrationForm.html' , form = form)
+    return render_template('registrationPage.html' , form = form)
 
 
 
