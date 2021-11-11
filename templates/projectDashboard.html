@@ -36,14 +36,31 @@
           <th>Category</th>
           <th>Amount</th>
           <th></th>
+          <th>Created at</th>
+          <th>Updated at</th>
         </tr>
         {% for expense in expense_obj %}
         <tr>
+<<<<<<< HEAD
           <td>{{expense.name}}</td>
           <td>{{expense.description}} </td>
           <td> {{expense.category}} </td>
           <td> {{expense.amount}}</td>
           <td>Edit/Delete</td>
+=======
+          <td>Production</td>
+          <td>$50000</td>
+          <td>
+            <a class="btn btn-sm btn-primary" href="#"
+              ><i class="far fa-edit"></i> edit</a
+            >
+            <a class="btn btn-sm btn-danger" href="{{ url_for('delete_project', project_id = project.id )}}"
+              ><i class="fas fa-trash-alt"></i> delete</a
+            >
+          </td>
+          <td>dd/mm/yy</td>
+          <td>dd/mm/yy</td>
+>>>>>>> 283473049aa4a96e8f210b2ce6aaf0b329466934
         </tr>
         {% endfor %}
       </table>
