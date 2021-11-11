@@ -217,11 +217,7 @@ def add_project_api():
 
     return redirect(url_for('dashboard_page') )
 
-
-#@ app.route('/paylah', methods = ['GET','POST'])
-#@login_required
-#def paylah_details():
-    #project_id = ''
+    
 
 
 @app.route('/logout', methods = ['GET','POST'])
@@ -230,6 +226,23 @@ def logout():
     logout_user()
     return redirect(url_for('login_page'))
 
+
+@ app.route('/paylah', methods = ['GET','POST'])
+@login_required
+def paylah_details():
+    user = User.query.filter_by(username = current_user.username).first()
+    current_user_id = user.id 
+    project_id = Project.query.filter_by(user_id = current_user_id).first()
+    current_project_id = project_id.id
+    expense_id = Expense.query.filter_by(project_id = current_project_id)
+
+@ app.route('/delete_project/<int:project_id>' )
+def delete_project(project_id):
+
+    user_project_query = Project.query.filter_by(id = project_id ).first()
+    db.session.delete(user_project_query)
+    db.session.commit()
+    return redirect(url_for('dashboard_page'))
 
 
 
