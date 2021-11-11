@@ -136,13 +136,6 @@ def login_page():
     return render_template('loginPage.html' , form = form)
 
 
-password_hash = db.Column(db.String(128))
-    name = db.Column(db.String(128))
-    appointment = db.Column(db.String(128))
-    user_id = db.Column(db.String(128))
-
-
-
 
 
 @ app.route('/register' , methods = ['GET','POST'])
