@@ -157,9 +157,9 @@ def register_page():
         db.session.add(new_user)
         db.session.commit()
         
-        return redirect(url_for('dashboard_page'))
+        return redirect(url_for('login_page'))
     
-    return render_template('registrationForm.html' , form = form)
+    return render_template('registrationPage.html' , form = form)
 
 
 
